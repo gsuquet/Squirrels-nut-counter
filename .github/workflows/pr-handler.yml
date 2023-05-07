@@ -1,0 +1,39 @@
+name: "Pull Request Handler"
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+    labeler:
+        permissions:
+            contents: read
+            pull-requests: write
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/labeler@v4
+
+    check_pr_name:
+        if: ${{ github.actor != 'dependabot[bot]'  && github.actor != 'allcontributors[bot]' }}
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Install deps
+            run: |
+              npm install commitlint-config-gitmoji commitlint
+              echo "module.exports = {extends: ['gitmoji']};" > ./commitlint.config.js
+          - name: Run PR name linter
+            uses: JulienKode/pull-request-name-linter-action@v0.5.0
+
+    check_files:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-python@v4
+              with:
+                python-version: '3.11'
+            - uses: actions/checkout@v3
+            - name: Install deps
+              run: |
+                python -m pip install --upgrade pip
+                pip install dagger-io
+            - name: Run Dagger_check_files.py pipeline
+              run: python ci/check_files.py
