@@ -1,0 +1,79 @@
+[tool.poetry]
+name = "squirrelsNutsCounter"
+version = "1.5.1"
+description = ""
+authors = ["Gabriel Suquet <gsuquet@ippon.fr>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "squirrelsnutscounter", from = "src" }]
+include = [{ path = "tests", format = "sdist" }]
+repository = "https://github.com/gsuquet/Squirrels-nut-counter"
+
+
+# Requirements
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4"
+pytest-cov = "^4.0"
+pytest-mock = "^3.11"
+pytest-randomly = "^3.13"
+pytest-xdist = { version = "^3.1", extras = ["psutil"] }
+
+[tool.poetry.group.typing.dependencies]
+mypy = ">=1.0"
+types-jsonschema = ">=4.9.0"
+types-requests = ">=2.28.8"
+
+[tool.poetry.scripts]
+poetry = "poetry.console.application:main"
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"
+
+[pytest]
+mock_use_standalone_module = true
+
+[tool.ruff]
+exclude = ["__init__.py"]
+select = [
+    "F", # Pyflakes
+    "E", # Pycodestyle errors
+    "W", # Pycodestyle warnings
+    "I", # Isort
+    "UP", # Pyupgrade
+    "C90", # McCabe complexity
+    "N", # Naming convention
+    "D", # Docstrings
+    "A", # Builtins
+    "C4", # Comprehensions
+    "EM", # Error messages
+    "EXE", # Executable
+    "ISC", # Implicit string concatenation
+    "ICN", # Import conventions
+    "INP", # Implicit namespaces conventions
+    "PYI", # Pyi stubs
+    "PTH", # Pathlib
+    "Q", # Quotes
+    "RSE", # Raise statements
+    "RET", # Returns
+    "SIM", # Simpler statements
+    "TID", # Tidy imports
+    "ARG", # Unused arguments
+    "RUF", # Ruff checks
+]
+
+[tool.ruff.pydocstyle]
+# Use Google-style docstrings.
+convention = "numpy"
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+multiline-quotes = "double"
