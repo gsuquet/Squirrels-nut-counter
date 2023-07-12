@@ -1,0 +1,43 @@
+# PR labeler configuration file
+ci:
+  - any: ['.github/**/*','!.github/ISSUE_TEMPLATE/*','!.github/pull_request_template.md']
+  - pipelines/**/*
+  - .pre-commit-config.yaml
+
+gitignore:
+  - .gitignore
+
+github_actions:
+  - any: ['.github/**/*','!.github/ISSUE_TEMPLATE/*','!.github/pull_request_template.md']
+
+tests:
+  - any: ['tests/**/*']
+
+documentation:
+  - docs/**/*
+  - .readthedocs.yaml
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - README.md
+  - SECURITY.md
+  - .github/ISSUE_TEMPLATE/**/*
+  - .github/pull_request_template.md
+
+configuration:
+  - pyproject.toml
+  - setup.py
+  - setup.cfg
+
+python:
+  - '**/*.py'
+  - pyproject.toml
+
+dependencies:
+  - requirements.txt
+  - requirements-*.txt
+  - requirements/**/*.txt
+  - Pipfile
+  - Pipfile.lock
+  - poetry.lock
+  - pyproject.toml
